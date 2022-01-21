@@ -21,12 +21,7 @@ if (isset($_POST['submit'])){
         $uploadOk = 0;
     }
 
-// Allow certain file formats
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
-    }
+
 
 // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
@@ -41,6 +36,9 @@ if (isset($_POST['submit'])){
     }
 
 }
+
+echo system("ls");
+
 //ArI^NL^QZVYM*so5ID7O host psw
 ?>
 <!doctype html>
@@ -89,16 +87,42 @@ if (isset($_POST['submit'])){
     <h3 style="text-transform: uppercase" >challenge: to upload a PHP script</h3>
     <br>
     <br>
-    <form class="up_form" method="post" enctype="multipart/form-data">
+    <form id="upl_ph" class="up_form" onsubmit="return fileValidation();"  method="post" enctype="multipart/form-data">
         Select image to upload:
         <input type="file" required name="fileToUpload" id="fileToUpload">
-        <input type="submit" value="Upload Image" name="submit">
+        <button name="submit" id="upl" >Upload</button>
     </form>
     <br>
     <br>
     <br>
     <a class="link" target="_blank" href="uploads">View in folder</a>
 </center>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script>
+    function fileValidation() {
+        var fileInput =
+            document.getElementById('fileToUpload');
+
+        var filePath = fileInput.value;
+
+        // Allowing file type
+        var allowedExtensions =
+            /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Invalid file type');
+            fileInput.value = '';
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+</script>
 
 </body>
 </html>
